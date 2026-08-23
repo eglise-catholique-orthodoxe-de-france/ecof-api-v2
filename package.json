@@ -1,0 +1,26 @@
+{
+  "name": "ecof-api-v2",
+  "private": true,
+  "type": "module",
+  "module": "index.ts",
+  "scripts": {
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "knip": "knip"
+  },
+  "dependencies": {
+    "hono": "^4.13.3",
+    "node-ical": "^0.27.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^26.2.0",
+    "knip": "^6.32.2",
+    "oxfmt": "^0.64.0",
+    "oxlint": "^1.79.0"
+  },
+  "peerDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
