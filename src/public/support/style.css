@@ -1,0 +1,32 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 1em;
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 1.4em;
+}
+
+a {
+  color: #007aff;
+}
+
+.section {
+  margin-bottom: 2em;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 2em 0;
+}
+
+.lang {
+  font-size: 0.75em;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5em;
+}

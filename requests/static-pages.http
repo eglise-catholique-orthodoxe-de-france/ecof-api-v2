@@ -1,0 +1,7 @@
+@baseUrl = http://localhost:3000
+
+### Page privacy (HTML)
+GET {{baseUrl}}/privacy
+
+### Page support (HTML)
+GET {{baseUrl}}/support
