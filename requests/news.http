@@ -1,0 +1,8 @@
+ @baseUrl = http://localhost:3000
+// @baseUrl = api-v2.ecof.app
+
+### ALL NEWS
+GET {{baseUrl}}/news
+
+### NEWS BY ID
+GET {{baseUrl}}/news/10

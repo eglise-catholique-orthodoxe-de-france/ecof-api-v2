@@ -1,9 +1,9 @@
-import { getVita } from "./synaxar.repository";
+import { getVita as getVitaFromDb } from "./synaxar.repository";
 import { mdToHtml } from "../../shared/utils/markdown";
 import { applyFrenchTypography } from "../../shared/utils/typography";
 
-export async function getVitaHtml(id: string) {
-  const vita = await getVita(id);
+export async function getVita(id: string) {
+  const vita = await getVitaFromDb(id);
   return (
     vita?.map((row) => ({
       ...row,

@@ -26,6 +26,7 @@ export async function getVita(id: string) {
         SELECT v_short, v_long, v_liturgy, has_img, mois, jour, prefixe, saint
         FROM synaxar
         WHERE vies_id = ${id}
+        LIMIT 1
     `;
   return rows || null;
 }
