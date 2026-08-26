@@ -1,9 +1,9 @@
 import { db } from "../../shared/db/client";
 
 type SynaxarRow = {
-  v_short: string;
-  v_long: string;
-  v_liturgy: string;
+  v_short: string | null;
+  v_long: string | null;
+  v_liturgy: string | null;
   has_img: boolean;
   mois: number;
   jour: number;
