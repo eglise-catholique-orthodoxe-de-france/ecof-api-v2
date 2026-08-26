@@ -2,16 +2,17 @@
   "name": "ecof-api-v2",
   "private": true,
   "type": "module",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
+    "start": "bun run src/index.ts",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
     "knip": "knip"
   },
   "dependencies": {
-    "hono": "^4.13.4",
+    "hono": "^4.13.5",
     "node-ical": "^0.27.1"
   },
   "devDependencies": {
@@ -23,5 +24,8 @@
   },
   "peerDependencies": {
     "typescript": "^7.0.2"
+  },
+  "engines": {
+    "bun": "1.4"
   }
 }
