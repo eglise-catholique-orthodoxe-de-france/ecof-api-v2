@@ -6,6 +6,3 @@ GET {{baseUrl}}/privacy
 
 ### SUPPORT PAGE
 GET {{baseUrl}}/support
-
-### SYNAXAR
-GET {{baseUrl}}/synaxar

@@ -12,9 +12,9 @@ export async function getSynaxar() {
 
 export async function getVita(id: string) {
   const rows = await db`
-        SELECT v_short, _long, v_liturgy, has_img, mois, jour, prefixe, saint
+        SELECT v_short, v_long, v_liturgy, has_img, mois, jour, prefixe, saint
         FROM synaxar
-        WHERE id_vies = ${id}
+        WHERE vies_id = ${id}
     `;
   return rows || null;
 }

@@ -1,5 +1,8 @@
-// @baseUrl = http://localhost:3000
- @baseUrl = api-v2.ecof.app
+ @baseUrl = http://localhost:3000
+// @baseUrl = api-v2.ecof.app
 
 ### SYNAXAR
 GET {{baseUrl}}/synaxar
+
+### VITA
+GET {{baseUrl}}/synaxar/94
