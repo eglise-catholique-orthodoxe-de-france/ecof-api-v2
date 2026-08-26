@@ -1,9 +1,9 @@
 import { Hono } from "hono";
-import { getPOI } from "./map.repository";
+import { getPoi } from "./map.repository";
 
 export const mapRoutes = new Hono()
   // GET /map
   .get("/", async (c) => {
-    const saints = await getPOI();
+    const saints = await getPoi();
     return c.json(saints);
   });

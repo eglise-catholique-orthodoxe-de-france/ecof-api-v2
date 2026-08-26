@@ -1,5 +1,16 @@
 import { db } from "../../shared/db/client";
 
+type SynaxarRow = {
+  v_short: string;
+  v_long: string;
+  v_liturgy: string;
+  has_img: boolean;
+  mois: number;
+  jour: number;
+  prefixe: string;
+  saint: string;
+};
+
 export async function getSynaxar() {
   const rows = await db`
         SELECT saint, vies_id
@@ -11,7 +22,7 @@ export async function getSynaxar() {
 }
 
 export async function getVita(id: string) {
-  const rows = await db`
+  const rows = await db<SynaxarRow[]>`
         SELECT v_short, v_long, v_liturgy, has_img, mois, jour, prefixe, saint
         FROM synaxar
         WHERE vies_id = ${id}

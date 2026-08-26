@@ -1,5 +1,6 @@
 import { Hono } from "hono";
-import { getSynaxar, getVita } from "./synaxar.repository";
+import { getSynaxar } from "./synaxar.repository";
+import { getVitaHtml } from "./synaxar.service";
 
 export const synaxarRoutes = new Hono()
   // GET /synaxar
@@ -10,6 +11,6 @@ export const synaxarRoutes = new Hono()
   // GET /synaxar/:id
   .get("/:id", async (c) => {
     const id = c.req.param("id");
-    const vita = await getVita(id);
+    const vita = await getVitaHtml(id);
     return c.json(vita);
   });
