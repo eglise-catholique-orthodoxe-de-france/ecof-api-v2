@@ -11,6 +11,7 @@ export async function getAllNews() {
   const rows = await db`
       SELECT id, title, author, slug_id, published_at
       FROM news
+      WHERE published_at <= CURRENT_DATE
       ORDER BY published_at DESC
     `;
   return rows;
