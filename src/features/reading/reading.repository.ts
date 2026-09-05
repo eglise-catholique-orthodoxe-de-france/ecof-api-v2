@@ -1,4 +1,4 @@
-import { db } from "../../shared/db/client";
+import { db } from "../../shared/db/client"
 
 export async function getScriptureReading(id: string) {
   const rows = await db`
@@ -6,6 +6,6 @@ export async function getScriptureReading(id: string) {
     FROM readings
     WHERE id = ${id}
     LIMIT 1
-    `;
-  return rows[0] || null;
+    `
+  return rows[0] || null
 }

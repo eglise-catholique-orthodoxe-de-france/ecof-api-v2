@@ -1,5 +1,5 @@
-import ical from "node-ical";
-import type { CalendarComponent, ParameterValue, VEvent } from "node-ical";
+import ical from "node-ical"
+import type { CalendarComponent, ParameterValue, VEvent } from "node-ical"
 
 const calendars: Record<string, string> = {
   angers:
@@ -29,20 +29,20 @@ const calendars: Record<string, string> = {
     "https://calendar.google.com/calendar/ical/paroissetheophanie.ecof%40gmail.com/public/basic.ics",
   lisieux:
     "https://calendar.google.com/calendar/ical/2f99103a78d9eb2c14d2ca0bb7b9f0ca1a9381c5f2875689f08503b7c8d6af3c@group.calendar.google.com/public/basic.ics",
-};
+}
 
 interface ParishEvent {
-  title: string;
-  start: string;
-  end: string;
-  allDay: boolean;
-  description: string;
-  location?: string;
-  uid: string;
+  title: string
+  start: string
+  end: string
+  allDay: boolean
+  description: string
+  location?: string
+  uid: string
 }
 
 export interface ParishInfo {
-  events: ParishEvent[];
+  events: ParishEvent[]
 }
 
 /**
@@ -51,13 +51,13 @@ export interface ParishInfo {
  * On normalise systématiquement en string pour le reste du code.
  */
 function toText(value: ParameterValue | undefined): string {
-  if (value === undefined) return "";
-  if (typeof value === "string") return value;
-  return value.val ?? "";
+  if (value === undefined) return ""
+  if (typeof value === "string") return value
+  return value.val ?? ""
 }
 
 function cleanDescription(raw: string): string {
-  if (!raw) return "";
+  if (!raw) return ""
   return raw
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<\/p>/gi, "\n")
@@ -69,11 +69,11 @@ function cleanDescription(raw: string): string {
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
     .replace(/\n{3,}/g, "\n\n")
-    .trim();
+    .trim()
 }
 
 function pad2(n: number): string {
-  return String(n).padStart(2, "0");
+  return String(n).padStart(2, "0")
 }
 
 /**
@@ -92,7 +92,7 @@ function pad2(n: number): string {
  */
 function dateToString(date: Date, isFullDay: boolean): string {
   if (isFullDay) {
-    return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}T00:00:00`;
+    return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}T00:00:00`
   }
 
   const parts = new Intl.DateTimeFormat("fr-FR", {
@@ -104,26 +104,26 @@ function dateToString(date: Date, isFullDay: boolean): string {
     minute: "2-digit",
     second: "2-digit",
     hour12: false,
-  }).formatToParts(date);
+  }).formatToParts(date)
   const get = (type: Intl.DateTimeFormatPartTypes) =>
-    parts.find((p) => p.type === type)?.value ?? "00";
-  return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}`;
+    parts.find((p) => p.type === type)?.value ?? "00"
+  return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}`
 }
 
 function addDays(date: Date, n: number): Date {
-  const d = new Date(date);
-  d.setDate(d.getDate() + n);
-  return d;
+  const d = new Date(date)
+  d.setDate(d.getDate() + n)
+  return d
 }
 
 interface BuildEventInput {
-  summary: ParameterValue | undefined;
-  description: ParameterValue | undefined;
-  location: ParameterValue | undefined;
-  uid: string;
-  start: Date;
-  end: Date;
-  isFullDay: boolean;
+  summary: ParameterValue | undefined
+  description: ParameterValue | undefined
+  location: ParameterValue | undefined
+  uid: string
+  start: Date
+  end: Date
+  isFullDay: boolean
 }
 
 /**
@@ -142,7 +142,7 @@ function buildEvent({
   end,
   isFullDay,
 }: BuildEventInput): ParishEvent {
-  const displayEnd = isFullDay ? addDays(end, -1) : end;
+  const displayEnd = isFullDay ? addDays(end, -1) : end
 
   return {
     title: toText(summary),
@@ -152,34 +152,34 @@ function buildEvent({
     description: cleanDescription(toText(description)),
     location: toText(location) || undefined,
     uid,
-  };
+  }
 }
 
 function isVEvent(component: CalendarComponent): component is VEvent {
-  return component.type === "VEVENT";
+  return component.type === "VEVENT"
 }
 
 export async function getParishInfo(city: string): Promise<ParishInfo> {
-  const url = calendars[city];
+  const url = calendars[city]
 
   if (!url) {
-    throw new Error(`City not found: ${city}`);
+    throw new Error(`City not found: ${city}`)
   }
 
-  const response = await fetch(url);
-  const icsText = await response.text();
-  const data = ical.sync.parseICS(icsText);
+  const response = await fetch(url)
+  const icsText = await response.text()
+  const data = ical.sync.parseICS(icsText)
 
-  const now = new Date();
-  const maxDate = new Date(now);
-  maxDate.setFullYear(maxDate.getFullYear() + 1);
+  const now = new Date()
+  const maxDate = new Date(now)
+  maxDate.setFullYear(maxDate.getFullYear() + 1)
 
-  const nowString = dateToString(now, false);
+  const nowString = dateToString(now, false)
 
-  const allEvents: ParishEvent[] = [];
+  const allEvents: ParishEvent[] = []
 
   for (const component of Object.values(data)) {
-    if (!component || !isVEvent(component)) continue;
+    if (!component || !isVEvent(component)) continue
 
     if (component.rrule) {
       // expandRecurringEvent gère nativement les EXDATE et les
@@ -188,7 +188,7 @@ export async function getParishInfo(city: string): Promise<ParishInfo> {
         from: now,
         to: maxDate,
         expandOngoing: true, // inclut une occurrence commencée avant "now" mais toujours en cours
-      });
+      })
 
       for (const instance of instances) {
         allEvents.push(
@@ -201,10 +201,10 @@ export async function getParishInfo(city: string): Promise<ParishInfo> {
             end: instance.end,
             isFullDay: instance.isFullDay,
           }),
-        );
+        )
       }
     } else {
-      const isFullDay = Boolean((component.start as { dateOnly?: true } | undefined)?.dateOnly);
+      const isFullDay = Boolean((component.start as { dateOnly?: true } | undefined)?.dateOnly)
       allEvents.push(
         buildEvent({
           summary: component.summary,
@@ -215,12 +215,12 @@ export async function getParishInfo(city: string): Promise<ParishInfo> {
           end: component.end ?? component.start,
           isFullDay,
         }),
-      );
+      )
     }
   }
 
-  const upcomingEvents = allEvents.filter((event) => event.end >= nowString);
-  upcomingEvents.sort((a, b) => a.start.localeCompare(b.start));
+  const upcomingEvents = allEvents.filter((event) => event.end >= nowString)
+  upcomingEvents.sort((a, b) => a.start.localeCompare(b.start))
 
-  return { events: upcomingEvents };
+  return { events: upcomingEvents }
 }

@@ -1,12 +1,12 @@
-const NBSP = "\u00A0";
-const NNBSP = "\u202F";
+const NBSP = "\u00A0"
+const NNBSP = "\u202F"
 
 /**
  * Applies French typography rules to a string.
  * Must be called on raw text (or Markdown), before any HTML parsing.
  */
 export function applyFrenchTypography(text: string | null): string | null {
-  if (!text) return null;
+  if (!text) return null
 
   return (
     text
@@ -20,5 +20,5 @@ export function applyFrenchTypography(text: string | null): string | null {
       .replace(/(?<!&[a-zA-Z0-9#]{1,10})\s*;/g, `${NNBSP};`)
       // text :  →  text\u00A0: (standard non-breaking space before ":")
       .replace(/\s*:/g, `${NBSP}:`)
-  );
+  )
 }

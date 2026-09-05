@@ -1,10 +1,10 @@
-import { Hono } from "hono";
-import { getScriptureReading } from "./reading.service";
+import { Hono } from "hono"
+import { getScriptureReading } from "./reading.service"
 
 export const readingRoutes = new Hono()
-  // GET /reading:id
+  // GET /reading/:id
   .get("/:id", async (c) => {
-    const id = c.req.param("id");
-    const reading = await getScriptureReading(id);
-    return c.json(reading);
-  });
+    const id = c.req.param("id")
+    const reading = await getScriptureReading(id)
+    return c.json(reading)
+  })

@@ -1,11 +1,11 @@
-import { db } from "../../shared/db/client";
+import { db } from "../../shared/db/client"
 
 type NewsRow = {
-  title: string | null;
-  author: string | null;
-  published_at: string | null;
-  content: string | null;
-};
+  title: string | null
+  author: string | null
+  published_at: string | null
+  content: string | null
+}
 
 export async function getAllNews() {
   const rows = await db`
@@ -13,8 +13,8 @@ export async function getAllNews() {
       FROM news
       WHERE published_at <= CURRENT_DATE
       ORDER BY published_at DESC
-    `;
-  return rows;
+    `
+  return rows
 }
 
 export async function getNewsById(id: string) {
@@ -23,6 +23,6 @@ export async function getNewsById(id: string) {
       FROM news
       WHERE id = ${id}
       LIMIT 1
-    `;
-  return rows[0] ?? null;
+    `
+  return rows[0] ?? null
 }

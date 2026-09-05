@@ -1,15 +1,15 @@
-import { db } from "../../shared/db/client";
+import { db } from "../../shared/db/client"
 
 type SynaxarRow = {
-  v_short: string | null;
-  v_long: string | null;
-  v_liturgy: string | null;
-  has_img: boolean;
-  mois: number;
-  jour: number;
-  prefixe: string;
-  saint: string;
-};
+  v_short: string | null
+  v_long: string | null
+  v_liturgy: string | null
+  has_img: boolean
+  mois: number
+  jour: number
+  prefixe: string
+  saint: string
+}
 
 export async function getSynaxar() {
   const rows = await db`
@@ -17,8 +17,8 @@ export async function getSynaxar() {
         FROM synaxar
         WHERE calendrier != 2
         ORDER BY saint ASC
-    `;
-  return rows || null;
+    `
+  return rows || null
 }
 
 export async function getVita(id: string) {
@@ -27,6 +27,6 @@ export async function getVita(id: string) {
         FROM synaxar
         WHERE vies_id = ${id}
         LIMIT 1
-    `;
-  return rows || null;
+    `
+  return rows || null
 }

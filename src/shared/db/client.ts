@@ -1,4 +1,4 @@
-import { SQL } from "bun";
+import { SQL } from "bun"
 
 export const db = new SQL({
   adapter: "postgres",
@@ -9,4 +9,4 @@ export const db = new SQL({
   database: process.env.PG_NAME,
   tls: true,
   max: 10,
-});
+})
